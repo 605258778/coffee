@@ -1,6 +1,7 @@
 package com.freemark.test;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -21,10 +22,23 @@ public class Ctrl {
 		return "Hello,Spring MVC";
 	}
 	
-	@RequestMapping("login")
-	public String iminateLogin(HttpServletRequest request){
+//	@RequestMapping("login")
+//	public String iminateLogin(HttpServletRequest request){
+//		HttpSession session = request.getSession();
+//		session.setAttribute("isLogin", "3333");
+//		return "view/index";
+//	}
+	@RequestMapping(value = "/login.do")
+	public String loginOut(HttpServletRequest request,
+			HttpServletResponse response){
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 		HttpSession session = request.getSession();
 		session.setAttribute("isLogin", "3333");
-		return "index";
+		if(username!=null&&password!=null){
+			return "view/index";
+		}else{
+			return "view/index";
+		}
 	}
 }
